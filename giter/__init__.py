@@ -71,7 +71,7 @@ def _git_branch(folder, branch, stash=False, sandbox=True):
         return _multi_execute(argslist, folder, f"Couldn't auto-branch the repo at {folder}.")
 
     else:
-        print(f"Repo already on branch {branch}.")
+        log.debug(f"Repo already on branch {branch}.")
         return True
 
 
@@ -157,13 +157,13 @@ def _multi_execute(argslist, subdir, error_msg):
         else:
             a, e_analyzer = atup, None
 
-        print(f"Executing {a} in {subdir}")
+        log.debug(f"Executing {a} in {subdir}")
         o = execute(a, subdir, printerr=False)
-        print(o)
+        log.debug(o)
         error = False
         if e_analyzer is not None:
             error = e_analyzer(o)
-            print(o, error)
+            log.debug(o, error)
         elif len(o["error"]) > 0:
             error = True
 
@@ -199,7 +199,7 @@ def _commit_repo(folder, message):
         submodule = path.dirname(folder)
         return _multi_execute(argslist, folder, f"Could not auto-commit changes in {submodule}.")
     else:
-        print("No uncommitted changes; skipping commit repo.")
+        log.debug("No uncommitted changes; skipping commit repo.")
         return True
 
 
@@ -236,4 +236,4 @@ def commit(message, folder=None):
     if not has_error:
         _commit_repo(folder, message)
     else:
-        print("Errors present in submodule repo commits; cannot commit parent repo.")
+        log.debug("Errors present in submodule repo commits; cannot commit parent repo.")
