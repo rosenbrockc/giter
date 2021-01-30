@@ -10,7 +10,7 @@ except ImportError:
 
 from setuptools import setup
 setup(name='giter',
-      version='0.0.1',
+      version='0.0.2',
       description='Wrapper functions to help with branches and submodules in `happyai`.',
       author='Happy Health',
       author_email='developer@happy.ai',

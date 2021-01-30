@@ -25,7 +25,10 @@ def check_uncommitted_changes(folder=None):
     args = ["git", "status", "."]
     log.info(f"Checking status for repository in {folder}.")
     result = execute(args, folder, printerr=False)
-    has_changes = len([l for l in result["output"] if "not staged" in l or "Changes to be committed" in l]) > 0
+    has_changes = len([l for l in result["output"] 
+                        if "not staged" in l or 
+                        "Changes to be committed" in l or 
+                        "Untracked files" in l]) > 0
 
     if has_changes:
         msg.warn(f"There are uncommitted changes in the repository at {folder}.")
